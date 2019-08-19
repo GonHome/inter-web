@@ -156,7 +156,7 @@
     ]
   },
   "devDependencies": {
-    "parallelshell": "^3.0.2",
-    "zhili-mock-dev-server": "^1.0.4"
+    "zhili-mock-dev-server": "^1.0.4",
+    "parallelshell": "3.0.1"
   }
 }
