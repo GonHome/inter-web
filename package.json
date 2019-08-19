@@ -82,7 +82,7 @@
     "workbox-webpack-plugin": "4.2.0"
   },
   "scripts": {
-    "start": "parallelshell 'npm run front-dev' 'npm run mock-dev'",
+    "start": "parallelshell \"npm run front-dev\" \"npm run mock-dev\"",
     "front-dev": "node scripts/start.js",
     "mock-dev": "cross-env ENABLE_MOCK_SERVER=true MOCK_PORT=3333  node $(npm bin)/zhili-mock-server",
     "build": "node scripts/build.js",
@@ -156,7 +156,8 @@
     ]
   },
   "devDependencies": {
-    "zhili-mock-dev-server": "^1.0.4",
-    "parallelshell": "3.0.1"
+    "cross-env": "^5.2.0",
+    "parallelshell": "3.0.1",
+    "zhili-mock-dev-server": "^1.0.4"
   }
 }
