@@ -1,0 +1,69 @@
+.sideMenu {
+  background-color: #20272c;
+  color: #fff;
+  overflow: hidden;
+  float: left;
+  .sideBar {
+    text-align: right;
+    width: 100%;
+    display: block;
+    border-bottom: 1px solid #f0e9e99c;
+    .bp3-icon {
+      color: #fff;
+    }
+  }
+  .side-items {
+    overflow-y: auto;
+    .tag-item {
+      background-color: transparent;
+      height: 32px;
+      padding: 7px 12px;
+      color: inherit;
+      border-color: rgba(0, 0, 0, .6);
+      line-height: 22px;
+      cursor: pointer;
+      .title {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: 100%;
+        margin: 0;
+        font-weight: 400;
+        text-align: left;
+        -webkit-flex-grow: 1;
+        -ms-flex-positive: 1;
+        flex-grow: 1;
+        vertical-align: middle;
+        margin-left: .375em;
+      }
+    }
+    .tag-item:not(.active):hover {
+      background-color: rgba(0,0,0,.2);
+    }
+    .tag-item.active {
+      background-color: rgba(0,0,0,.4);
+    }
+    .counter {
+      float: right;
+      font-size: 12px;
+    }
+  }
+
+  .side-items::-webkit-scrollbar {
+    width: 10px;
+    height: 1px;
+  }
+
+  .side-items::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    background: #535353;
+  }
+
+  .side-items::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    border-radius: 10px;
+    background: #EDEDED;
+  }
+}
+
