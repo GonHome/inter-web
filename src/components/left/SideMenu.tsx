@@ -34,6 +34,13 @@ export default class SideMenu extends  React.Component<IProps, IState> {
       />})
   };
 
+  editDb = () => {
+    this.setState({ Dialog: () => <InJect
+        Component={DbDialog}
+        props={{ closeDialog: this.closeDialog, title: '修改数据源' }}
+      />})
+  };
+
   closeDialog = () => {
     this.setState({ Dialog: null });
   };
@@ -60,7 +67,7 @@ export default class SideMenu extends  React.Component<IProps, IState> {
       <div className="sideMenu" style={{ width: leftWidth, height: mainHeight }}>
         <ButtonGroup className="sideBar">
           <Button icon="plus" minimal small title="添加" onClick={this.addDb}/>
-          <Button icon="edit" minimal small title="修改" disabled={!checkedTag}/>
+          <Button icon="edit" minimal small title="修改" disabled={!checkedTag} onClick={this.editDb}/>
           <Button icon="trash" minimal small title="删除" disabled={!checkedTag}/>
         </ButtonGroup>
         <div className="side-items" style={{ height: mainHeight - 25 }}>

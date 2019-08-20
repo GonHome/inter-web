@@ -7,7 +7,7 @@ class User {
   @observable userInfo?: { name: string, username: string, id: number };
 
   constructor () {
-    this.isLogin = false;
+    this.isLogin = true;
     this.userInfo = { name: '系统管理员', username: 'zladmin', id: 1 };
   }
 

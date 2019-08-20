@@ -37,13 +37,65 @@ class Entry extends React.Component<IProps> {
     window.onresize = () => this.props.system.resize();
   }
 
+  mouseDownMoveMiddle = (e: any) => {
+    let bx = e.clientX;
+    let prevX = 0;
+    document.onmousemove = (event) => {
+      const { middleWidth, moveMiddleWidth } = this.props.system;
+      let nextX = event.clientX - bx;
+      let newMiddleWidth = middleWidth + nextX - prevX;
+      moveMiddleWidth(newMiddleWidth);
+      prevX = nextX;
+    };
+    document.onmouseup = () => {
+      document.onmousemove = null;
+    };
+    e.stopPropagation();
+  };
+
+  mouseDownMoveLeft = (e: any) => {
+    let bx = e.clientX;
+    let prevX = 0;
+    document.onmousemove = (event) => {
+      const { leftWidth, moveMiddleLeft } = this.props.system;
+      let nextX = event.clientX - bx;
+      let newLeftWidth = leftWidth + nextX - prevX;
+      moveMiddleLeft(newLeftWidth);
+      prevX = nextX;
+    };
+    document.onmouseup = () => {
+      document.onmousemove = null;
+    };
+    e.stopPropagation();
+  };
+
+  mouseUpMoveMiddle = () => {
+    document.onmousemove = null;
+  };
+
+  mouseUpMoveSide = () => {
+    document.onmousemove = null;
+  };
+
   render() {
-    const { height, width } = this.props.system;
+    const { height, width, leftWidth, middleWidth, headHeight } = this.props.system;
     const { isLogin } = this.props.user;
     if (isLogin) {
       return (
         <div style={{ height, width }}>
           <Head />
+          <div
+            className="sash"
+            style={{ transform: `matrix(1, 0, 0, 1, ${leftWidth + middleWidth}, 0)`, top: headHeight }}
+            onMouseDown={this.mouseDownMoveMiddle}
+            onMouseUp={this.mouseUpMoveMiddle}
+          />
+          <div
+            className="sash"
+            style={{ transform: `matrix(1, 0, 0, 1, ${leftWidth}, 0)`, top: headHeight }}
+            onMouseDown={this.mouseDownMoveLeft}
+            onMouseUp={this.mouseUpMoveSide}
+          />
           <InJect Component={SideMenu}/>
           <InJect Component={Middle}/>
           <InJect Component={Main} />

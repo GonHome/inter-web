@@ -152,7 +152,7 @@ class EditSql extends React.Component<propTypes> {
     const { mainWidth, mainHeight } = system;
     const options: monacoEditor.editor.IEditorConstructionOptions = {
       selectOnLineNumbers: true,
-      lineHeight: 39,
+      lineHeight: 30,
       minimap: { enabled: false },
     };
     options['lineNumbers'] = 'off';
@@ -162,7 +162,7 @@ class EditSql extends React.Component<propTypes> {
         <div className="editor-content" >
           <MonacoEditor
             width={mainWidth - 190}
-            height={mainHeight * 0.6}
+            height={mainHeight - 240}
             language='sql'
             theme='vs'
             value={content}

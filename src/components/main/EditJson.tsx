@@ -80,7 +80,7 @@ class EditJson extends React.Component<propTypes> {
     const { mainWidth, mainHeight } = system;
     const options: monacoEditor.editor.IEditorConstructionOptions = {
       selectOnLineNumbers: true,
-      lineHeight: 39,
+      lineHeight: 30,
       minimap: { enabled: false },
     };
     options['lineNumbers'] = 'off';

@@ -3,6 +3,7 @@
   color: #fff;
   overflow: hidden;
   float: left;
+  -webkit-user-select: none;
   .sideBar {
     text-align: right;
     width: 100%;
@@ -26,7 +27,7 @@
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        max-width: 100%;
+        max-width: calc(100% - 45px);
         margin: 0;
         font-weight: 400;
         text-align: left;
@@ -35,6 +36,7 @@
         flex-grow: 1;
         vertical-align: middle;
         margin-left: .375em;
+        display: inline-block;
       }
     }
     .tag-item:not(.active):hover {

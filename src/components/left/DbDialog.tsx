@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { System, App } from 'store';
-import { Form, Modal } from 'antd';
+import { Form, Modal, Button } from 'antd';
 import { inject, observer } from 'mobx-react';
 import DbForm from './DbForm';
 
@@ -26,9 +26,19 @@ class DbDialog extends React.Component<ISystem> {
         title={title}
         visible
         maskClosable={false}
-        onOk={closeDialog}
         onCancel={closeDialog}
         bodyStyle={{ maxHeight: height - 250, overflowY: 'auto' }}
+        footer={[
+          <Button key="back" onClick={closeDialog}>
+            取消
+          </Button>,
+          <Button key="back" onClick={closeDialog}>
+            检测
+          </Button>,
+          <Button key="submit" type="primary" onClick={closeDialog}>
+            提交
+          </Button>,
+        ]}
       >
         <WF wrappedComponentRef={(inst: any) => { this.formRef = inst; } } />
       </Modal>
