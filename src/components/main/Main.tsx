@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { System, App } from 'store';
-import { Row, Col, Input } from 'antd';
+import { Form } from 'antd';
 import { inject, observer } from 'mobx-react';
 import MainHeadBar from './MainHeadBar';
 import InJect from '../../util/InJect';
+import MainForm from './MainForm';
 
 type ISystem = {
   system: System,
@@ -14,21 +15,16 @@ type ISystem = {
 @observer
 class Main extends React.Component<ISystem> {
 
+  private formRef: any;
   render() {
     const { system } = this.props;
     const { mainHeight, mainWidth } = system;
+    const WF = Form.create()(MainForm);
     return (
       <div className="main" style={{ width: mainWidth, height: mainHeight }}>
         <InJect Component={MainHeadBar} />
         <div className="main-body" style={{ height: mainHeight - 37 }}>
-          <Row gutter={24}>
-            <Col span={5}>
-              接口名:
-            </Col>
-            <Col span={19}>
-              <Input />
-            </Col>
-          </Row>
+          <WF wrappedComponentRef={(inst: any) => { this.formRef = inst; } } />
         </div>
       </div>
     );

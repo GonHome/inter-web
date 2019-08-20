@@ -7,7 +7,7 @@ export default class Head extends  React.Component {
   render() {
     return (
       <div className="head">
-        <img src='logo.svg' />
+        <img src='logo.svg' alt='logo' />
         <div className="head-logo-text">
           <div className="title hover-link">
             <span>G</span>

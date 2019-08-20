@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, ButtonGroup, Popover, Position, Icon } from '@blueprintjs/core';
+import { Button, ButtonGroup } from '@blueprintjs/core';
 import { inject, observer } from 'mobx-react';
 
 type propTypes = {
@@ -24,6 +24,7 @@ class MainHeadBar extends React.Component<propTypes> {
     }
     const code = e.keyCode;
     if (e.ctrlKey && code === 83) {
+      console.log('保存');
       // saveNotes();
       e.preventDefault();
       e.stopPropagation();

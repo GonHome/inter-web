@@ -1,6 +1,6 @@
 .main {
   background-color: #fff;
-  float: right;
+  position: absolute;
   color: #1f1f1f;
   border: #dedede solid 1px;
   display: inline-block;
@@ -38,10 +38,20 @@
     overflow-y: auto;
     .ant-row {
       line-height: 40px;
-      .ant-col-5 {
-        font-size: 18px;
+      .ant-form-item-label {
         text-align: right;
         font-weight: bold;
+        label {
+          font-size: 18px;
+        }
+      }
+      .editor-content {
+        .margin {
+          display: none;
+        }
+        .monaco-scrollable-element {
+          left: 0 !important;
+        }
       }
     }
   }

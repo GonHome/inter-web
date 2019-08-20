@@ -127,7 +127,7 @@ class Middle extends React.Component<ISystem> {
 
   render() {
     const { app, system } = this.props;
-    const { mainHeight, middleWidth, leftWidth } = system;
+    const { mainHeight, middleWidth } = system;
     const { sort, changeSort } = app;
     return (
       <div className="middle" style={{ width: middleWidth }}>

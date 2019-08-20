@@ -11,7 +11,7 @@ class App {
 
   constructor () {
     this.tags = [];
-    this.checkedTag = 'home';
+    this.checkedTag = '';
     this.id = '';
     this.sort = { sortName: 'name', sortOrder: 'DESC' };
     this.searchValue = '';
