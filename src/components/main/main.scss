@@ -12,10 +12,13 @@
     width: 100%;
     line-height: 24px;
     padding: 5px;
-    .bp3-button {
-      min-width: 30px;
-      .bp3-button-text {
-        color: black;
+    .bp3-button-group {
+      margin-right: 10px;
+      .bp3-button {
+        min-width: 30px;
+        .bp3-button-text {
+          color: black;
+        }
       }
     }
   }
@@ -23,6 +26,9 @@
     background-color: #f5f5f5;
     border-color: #d6d6d6;
     color: #505050;
+    .bp3-active {
+      background-color: #f2c113 !important;
+    }
     .bp3-button:not(.bp3-minimal):not(.bp3-active) {
       background-color: #fff;
       .bp3-icon {

@@ -15,11 +15,20 @@ type ISystem = {
 @observer
 class Main extends React.Component<ISystem> {
 
+  private wf: any;
+
   private formRef: any;
+
   render() {
     const { system } = this.props;
     const { mainHeight, mainWidth } = system;
-    const WF = Form.create()(MainForm);
+    let WF = null;
+    if (this.wf) {
+      WF = this.wf;
+    } else {
+      WF = Form.create()(MainForm);
+      this.wf = WF;
+    }
     return (
       <div className="main" style={{ width: mainWidth, height: mainHeight }}>
         <InJect Component={MainHeadBar} />
