@@ -18,6 +18,7 @@
     "@types/react-router-dom": "^4.3.4",
     "@typescript-eslint/eslint-plugin": "1.6.0",
     "@typescript-eslint/parser": "1.6.0",
+    "@zhili/server-mock": "^1.0.5",
     "antd": "^3.21.1",
     "babel-eslint": "10.0.1",
     "babel-jest": "^24.8.0",
@@ -52,6 +53,7 @@
     "mobx": "^5.13.0",
     "mobx-react": "^6.1.1",
     "mobx-react-router": "^4.0.7",
+    "monaco-editor": "^0.17.1",
     "node-sass": "^4.12.0",
     "optimize-css-assets-webpack-plugin": "5.0.1",
     "pnp-webpack-plugin": "1.2.1",
@@ -65,6 +67,7 @@
     "react-dev-utils": "^9.0.1",
     "react-dom": "^16.8.6",
     "react-input-mask": "^2.0.4",
+    "react-monaco-editor": "^0.30.0",
     "react-router-dom": "^5.0.1",
     "resolve": "1.10.0",
     "sass-loader": "7.1.0",
@@ -79,14 +82,12 @@
     "webpack": "4.29.6",
     "webpack-dev-server": "3.2.1",
     "webpack-manifest-plugin": "2.0.4",
-    "workbox-webpack-plugin": "4.2.0",
-    "monaco-editor": "^0.17.1",
-    "react-monaco-editor": "^0.30.0"
+    "workbox-webpack-plugin": "4.2.0"
   },
   "scripts": {
     "start": "parallelshell \"npm run front-dev\" \"npm run mock-dev\"",
     "front-dev": "node scripts/start.js",
-    "mock-dev": "cross-env ENABLE_MOCK_SERVER=true MOCK_PORT=3333  node node_modules/zhili-mock-dev-server/build/main.js",
+    "mock-dev": "cross-env ENABLE_MOCK_SERVER=true MOCK_PORT=3333  node node_modules/'@zhili/server-mock'/main.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js"
   },
@@ -159,7 +160,6 @@
   },
   "devDependencies": {
     "cross-env": "^5.2.0",
-    "parallelshell": "3.0.1",
-    "zhili-mock-dev-server": "^1.0.4"
+    "parallelshell": "3.0.1"
   }
 }
