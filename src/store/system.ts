@@ -16,7 +16,8 @@ class System {
     this.headHeight = 50;
   }
 
-  @action resize () {
+  @action
+  async resize() {
     this.width = window.innerWidth;
     this.height = window.innerHeight;
   }

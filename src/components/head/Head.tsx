@@ -10,8 +10,8 @@ export default class Head extends  React.Component {
         <img src='logo.svg' alt='logo' />
         <div className="head-logo-text">
           <div className="title hover-link">
-            <span>G</span>
-            <span>S</span>
+            <span>Z</span>
+            <span>L</span>
             <span>&nbsp;</span>
             <span>接</span>
             <span>口</span>
@@ -19,8 +19,8 @@ export default class Head extends  React.Component {
             <span>心</span>
           </div>
           <div className="title hover-link">
-            <span>G</span>
-            <span>S</span>
+            <span>Z</span>
+            <span>L</span>
             <span>&nbsp;</span>
             <span>接</span>
             <span>口</span>

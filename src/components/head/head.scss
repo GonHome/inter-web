@@ -7,7 +7,6 @@
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
   flex-direction: row;
-  cursor: pointer;
   transition: background .25s ease-out,height .25s ease-out,transform .3s ease-out,-webkit-transform .3s ease-out;
   img {
     width: 45px;
@@ -19,6 +18,7 @@
   }
   .head-logo-text {
     width: 140px;
+    cursor: pointer;
     height: 40px;
     overflow: hidden;
     position: relative;
