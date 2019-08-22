@@ -1,8 +1,7 @@
-import { api, apiMock } from './api';
-import { HalRestClient } from 'hal-rest-client';
+import { get, post, del, patch  } from '@billjs/request';
 
 export enum Method {
-  GET, POST, DELETE, UPDATE,
+  GET, POST, DELETE, PATCH,
 }
 
 interface IApi {
@@ -15,31 +14,39 @@ export class ApiFetch {
   private mock: boolean;
   private url: string;
   private method: Method;
-  private client: HalRestClient;
 
   constructor (props: IApi) {
     this.mock = props.mock;
     this.url = props.mock ? props.mockUrl : props.url;
     this.method = props.method;
-    this.client = props.mock ? apiMock : api ;
   }
 
-  GET = async () => {
-    return await this.client.fetchResource(this.url);
+  private GET = async () => {
+    return get(this.url);
   };
 
-  POST = async (params?: any) => {
-    return await this.client.create(this.url, params);
+  private POST = async (params?: any) => {
+    return post(this.url, params);
   };
 
-  DELETE = async () => {
-    return await this.client.delete(this.url);
+  private DELETE = async () => {
+    return del(this.url);
   };
 
-  UPDATE = async (params?: any) => {
-    return await this.client.update(this.url, params)
+  private PATCH = async (params?: any) => {
+    return patch(this.url, params);
   };
 
-
-
+  EXECUTE = (params?: any) => {
+    switch (this.method) {
+      case Method.GET:
+        return this.GET();
+      case Method.POST:
+        return this.POST(params);
+      case Method.DELETE:
+        return this.DELETE();
+      case Method.PATCH:
+        return this.PATCH(params);
+    }
+  }
 }

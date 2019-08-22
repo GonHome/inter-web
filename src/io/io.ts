@@ -5,7 +5,13 @@ export const io = {
     login: {
       mock,
       mockUrl: '',
-      url: '/user/login/',
+      url: '/api/user/login/',
       method: Method.POST,
+    },
+    searchUser: {
+      mock,
+      mockUrl: '',
+      url: '/api/user/search/',
+      method: Method.GET,
     }
 };

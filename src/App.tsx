@@ -18,9 +18,8 @@ import './index.scss';
 import Login from 'components/login';
 import InJect from './util/InJect';
 import { System, User } from './store';
-import { api } from 'io/api';
 import { io } from 'io/io';
-import { ApiFetch } from "./io/method";
+import { ApiFetch } from 'io/method';
 const browserHistory = createBrowserHistory();
 const routerStore =  new RouterStore();
 // 同步路由与mobx的数据状态
@@ -38,8 +37,9 @@ class Entry extends React.Component<IProps> {
   async componentDidMount(): Promise<void> {
     this.props.user.checkLogin();
     window.onresize = () => this.props.system.resize();
-    const response  = new ApiFetch(io.login).POST({ name: 'root1', password: '123456' });
-    console.log(response);
+    const response1  = await new ApiFetch(io.login).EXECUTE({ name: 'root1', password: '123456' });
+    const response2  = await new ApiFetch(io.searchUser).EXECUTE();
+    console.log(response1, response2);
   }
 
   mouseDownMoveMiddle = (e: any) => {
