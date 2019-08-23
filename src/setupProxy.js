@@ -14,7 +14,7 @@ module.exports = function (app) {
   );
   app.use(
     proxy('/mockApi/', {
-        target: 'http://127.0.0.1:3333/',
+        target: 'http://127.0.0.1:3333/mock/',
         ws: true,
         secure: false,
         pathRewrite: {

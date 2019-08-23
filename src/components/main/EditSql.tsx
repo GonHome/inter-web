@@ -65,34 +65,20 @@ import 'monaco-editor/esm/vs/editor/contrib/find/findController.js';
 import { language as mysqlLanguage } from 'monaco-editor/esm/vs/basic-languages/mysql/mysql';
 import * as monacoEditor from 'monaco-editor';
 import { inject, observer } from 'mobx-react';
-import System from '../../store/system';
+import { App, System } from 'store';
 
-type propTypes = {
+type IProps = {
   content: string;
   system: System;
+  app: App,
   expressionChange: (expression: string) => void;
 };
 
-@inject("system")
+@inject("system", "app")
 @observer
-class EditSql extends React.Component<propTypes> {
+class EditSql extends React.Component<IProps> {
 
   editorDidMount(editor: monacoEditor.editor.IStandaloneCodeEditor, monaco: typeof monacoEditor) {
-    const suggestion = [{
-      label: '测试1',
-      insertText: '测试1', // 不写的时候不展示。。
-      detail: '提示的文字'
-    },
-      {
-        label: '测试2',
-        insertText: '测试22',
-        detail: '提示的文字'
-      },
-      {
-        label: '测试3',
-        insertText: '测试3',
-        detail: '提示的文字'
-      }];
     // @ts-ignore
     monaco.languages.registerCompletionItemProvider('sql', { provideCompletionItems: function(model, position) {
       const textUntilPosition = model.getValueInRange({
@@ -132,24 +118,17 @@ class EditSql extends React.Component<propTypes> {
           });
         }
       });
-      suggestion.forEach(item => {
-        suggestions.push({
-          label: item.label,
-          kind: monaco.languages.CompletionItemKind.Function,
-          insertText: item.insertText,
-        });
-      });
       return {
         suggestions
       };
     },
-    triggerCharacters: ['#'],
     });
   }
 
   render() {
-    const { content, system, expressionChange } = this.props;
+    const { content, system, app, expressionChange } = this.props;
     const { mainWidth, mainHeight } = system;
+    const { language } = app;
     const options: monacoEditor.editor.IEditorConstructionOptions = {
       selectOnLineNumbers: true,
       lineHeight: 30,
@@ -162,8 +141,8 @@ class EditSql extends React.Component<propTypes> {
         <div className="editor-content" >
           <MonacoEditor
             width={mainWidth - 190}
-            height={mainHeight - 240}
-            language='sql'
+            height={mainHeight - 180}
+            language={language}
             theme='vs'
             value={content}
             options={options}

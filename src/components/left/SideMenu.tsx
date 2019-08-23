@@ -7,7 +7,7 @@ import { IOpenTag } from 'models';
 import SideTag from './SideTag';
 import DbDialog from './DbDialog';
 import InJect from 'util/InJect';
-import { leftDemos } from 'constants/appConstants';
+import { doErrMessage } from '../../util/notice';
 
 interface IProps {
   system: System,
@@ -58,27 +58,31 @@ export default class SideMenu extends  React.Component<IProps, IState> {
     addTag(param);
   };
 
+  delete = () => {
+    doErrMessage('shabai');
+  }
+
   render() {
     const { system, app } = this.props;
     const { Dialog } = this.state;
-    const { checkedTag, checkTag } = app;
+    const { checkedTag, checkTag, dbs } = app;
     const { leftWidth, mainHeight } = system;
     return (
       <div className="sideMenu" style={{ width: leftWidth, height: mainHeight }}>
         <ButtonGroup className="sideBar">
           <Button icon="plus" minimal small title="添加" onClick={this.addDb}/>
           <Button icon="edit" minimal small title="修改" disabled={!checkedTag} onClick={this.editDb}/>
-          <Button icon="trash" minimal small title="删除" disabled={!checkedTag}/>
+          <Button icon="trash" minimal small title="删除" disabled={!checkedTag} onClick={this.delete}/>
         </ButtonGroup>
         <div className="side-items" style={{ height: mainHeight - 25 }}>
-          {leftDemos.map((item: any) => (
+          {dbs.map((item: any) => (
             <SideTag
-              key={item.code}
-              code={item.code}
-              icon={item.icon}
-              text={item.text}
+              key={item.id}
+              code={item.id}
+              icon='database'
+              text={item.name}
               count={item.count}
-              active={checkedTag === item.code}
+              active={checkedTag === item.id}
               checkTag={checkTag}
             />
           ))}

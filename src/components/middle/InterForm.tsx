@@ -1,10 +1,9 @@
 import * as React from 'react';
 import { System, App } from 'store';
-import { Input, Form, Select } from 'antd';
+import { Input, Form } from 'antd';
 import { inject, observer } from 'mobx-react';
 
 const { TextArea } = Input;
-const Option = Select.Option;
 
 interface IProps {
   form: any;
@@ -25,7 +24,7 @@ const formItemLayout = {
 
 @inject("system", "app")
 @observer
-class DbForm extends React.Component<IProps> {
+class InterForm extends React.Component<IProps> {
 
   render() {
     const { form } = this.props;
@@ -35,49 +34,24 @@ class DbForm extends React.Component<IProps> {
         <Form.Item
           className="item"
           {...formItemLayout}
-          label='数据源类型'
-        >
-          {getFieldDecorator('type', {
-            rules: [
-              {
-                required: true,
-                message: '请选择数据源类型',
-              }
-            ]
-          })(<Select size="small">
-            <Option value='ES'>ES</Option>
-            <Option value='DB'>DB</Option>
-          </Select>)
-          }
-        </Form.Item>
-        <Form.Item
-          className="item"
-          {...formItemLayout}
-          label='连接名'
+          label='接口名'
         >
           {getFieldDecorator('name', {
             rules: [
               {
                 required: true,
-                message: '请填写连接名',
+                message: '请输入接口名',
               }
             ]
-          })(<Input size="small"/>)
+          })(<Input size="small" />)
           }
         </Form.Item>
         <Form.Item
           className="item"
           {...formItemLayout}
-          label='url'
+          label='描述'
         >
-          {getFieldDecorator('url', {
-            rules: [
-              {
-                required: true,
-                message: '请填写url',
-              }
-            ]
-          })(
+          {getFieldDecorator('description', {})(
             <TextArea autosize={{ minRows: 5 }}/>
           )}
         </Form.Item>
@@ -86,4 +60,4 @@ class DbForm extends React.Component<IProps> {
   }
 }
 
-export default DbForm;
+export default InterForm;

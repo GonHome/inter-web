@@ -1,13 +1,20 @@
 import * as React from 'react';
 import { Button, ButtonGroup } from '@blueprintjs/core';
+import { Select } from 'antd';
 import { inject, observer } from 'mobx-react';
+import { languages } from "../../constants/appConstants";
+import { System, App } from 'store';
 
-type propTypes = {
+const Option = Select.Option;
+
+type IProps = {
+  system: System,
+  app: App,
 };
 
 @inject("system", "app")
 @observer
-class MainHeadBar extends React.Component<propTypes> {
+class MainHeadBar extends React.Component<IProps> {
 
   componentDidMount(): void {
     document.body.addEventListener('keydown', this.keydownEvent)
@@ -38,6 +45,7 @@ class MainHeadBar extends React.Component<propTypes> {
 
 
   render() {
+    const { language, changeLanguage } = this.props.app;
     return (
       <div className="layout-header toolbar">
         <ButtonGroup>
@@ -47,6 +55,13 @@ class MainHeadBar extends React.Component<propTypes> {
         <ButtonGroup>
           <Button icon="edit" small title="编辑" active />
           <Button icon="wrench" small title="调试" />
+        </ButtonGroup>
+        <ButtonGroup>
+          <Select size="small" showSearch className='select-language' value={language} onSelect={changeLanguage}>
+            {languages.map((language: string) => (
+              <Option key={language} value={language}>{language}</Option>
+              ))}
+          </Select>
         </ButtonGroup>
       </div>
     );

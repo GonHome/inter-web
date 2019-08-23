@@ -75,21 +75,6 @@ class MainForm extends React.Component<ISystem, IState> {
         <Form.Item
           className="item"
           {...formItemLayout}
-          label='接口名'
-        >
-          {getFieldDecorator('name', {
-            rules: [
-              {
-                required: true,
-                message: '请填写接口名',
-              }
-            ]
-          })(<Input />)
-          }
-        </Form.Item>
-        <Form.Item
-          className="item"
-          {...formItemLayout}
           label='参数'
         >
           {getFieldDecorator('params', {})(

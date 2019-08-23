@@ -2,7 +2,7 @@ import * as React from 'react';
 import { System, App } from 'store';
 import { Form, Modal, Button, Spin } from 'antd';
 import { inject, observer } from 'mobx-react';
-import DbForm from './DbForm';
+import InterForm from './InterForm';
 import { ValidateCallback } from 'antd/lib/form';
 
 type IProps = {
@@ -20,7 +20,7 @@ interface IState {
 
 @inject("system", "app")
 @observer
-class DbDialog extends React.Component<IProps, IState> {
+class InterDialog extends React.Component<IProps, IState> {
 
   constructor(props: IProps) {
     super(props);
@@ -34,25 +34,13 @@ class DbDialog extends React.Component<IProps, IState> {
 
   private wf: any;
 
-  test = () => {
-    const { testConnect } = this.props.app;
-    this.formRef.props.form.validateFields(async (err: ValidateCallback<any>) => {
-      if (!err) {
-        this.setState({ loading: true });
-        const dbInfo = this.formRef.props.form.getFieldsValue();
-        await testConnect(dbInfo);
-        this.setState({ loading: false });
-      }
-    });
-  };
-
   submit = () => {
     const { closeDialog } = this.props;
-    const { addDb } = this.props.app;
+    const { addInter } = this.props.app;
     this.formRef.props.form.validateFields((err: ValidateCallback<any>) => {
       if (!err) {
-        const dbInfo = this.formRef.props.form.getFieldsValue();
-        addDb(dbInfo);
+        const inter = this.formRef.props.form.getFieldsValue();
+        addInter(inter);
         closeDialog();
       }
     });
@@ -66,7 +54,7 @@ class DbDialog extends React.Component<IProps, IState> {
     if (this.wf) {
       WF = this.wf;
     } else {
-      WF = Form.create()(DbForm);
+      WF = Form.create()(InterForm);
       this.wf = WF;
     }
     return (
@@ -79,9 +67,6 @@ class DbDialog extends React.Component<IProps, IState> {
         footer={[
           <Button key="back" onClick={closeDialog}>
             取消
-          </Button>,
-          <Button key="test" onClick={this.test}>
-            检测
           </Button>,
           <Button key="submit" type="primary" onClick={this.submit}>
             提交
@@ -96,4 +81,4 @@ class DbDialog extends React.Component<IProps, IState> {
   }
 }
 
-export default DbDialog;
+export default InterDialog;

@@ -1,9 +1,4 @@
-// @ts-ignore
-import traverson  from 'traverson';
-// @ts-ignore
-import JsonHalAdapter  from 'traverson-hal';
 import { Toaster, Position, Intent } from '@blueprintjs/core';
-traverson.registerMediaType(JsonHalAdapter.mediaType, JsonHalAdapter);
 const TOASTER = Toaster.create({ position: Position.TOP });
 export const doError = (error: any) => {
   TOASTER.show({
@@ -61,6 +56,3 @@ export const checkError=({error,response}: any)=>{
 //   );
 //   return apiHttp;
 // })();
-
-export const api = traverson.from('/api/').json().newRequest()
-  .withRequestOptions({ headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } }) ;

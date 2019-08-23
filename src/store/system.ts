@@ -11,8 +11,8 @@ class System {
   constructor () {
     this.width = window.innerWidth;
     this.height = window.innerHeight;
-    this.leftWidth = 250;
-    this.middleWidth = 350;
+    this.leftWidth = 200;
+    this.middleWidth = 250;
     this.headHeight = 50;
   }
 

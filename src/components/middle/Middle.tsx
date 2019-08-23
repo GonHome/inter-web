@@ -1,25 +1,58 @@
 import * as React from 'react';
-import { InputGroup, Button, Popover, Position, ContextMenu, Menu, MenuItem } from '@blueprintjs/core';
+import { InputGroup, Button, Popover, Position, Icon } from '@blueprintjs/core';
 import { System, App } from 'store';
 import SortMenu from './SortMenu';
 import { sortObj, sortOrderObj, sortNameObj } from 'models';
 import { sortOrders, sortNames } from 'constants/appConstants';
 import { inject, observer } from "mobx-react";
+import classNames from 'classnames';
+import InJect from 'util/InJect';
+import InterDialog from './InterDialog';
 
-type ISystem = {
+type IProps = {
   system: System,
   app: App,
 };
 
+
+interface IState {
+  Dialog: any;
+}
+
 @inject("system", "app")
 @observer
-class Middle extends React.Component<ISystem> {
+class Middle extends React.Component<IProps, IState> {
+
+  constructor(props: IProps) {
+    super(props);
+    this.state = { Dialog: null };
+  }
 
   searchButton = () => {
+    const { searchInter } = this.props.app;
     return <Button
       icon="search"
       minimal
+      onClick={searchInter}
     />
+  };
+
+  addInter = () => {
+    this.setState({ Dialog: () => <InJect
+        Component={InterDialog}
+        props={{ closeDialog: this.closeDialog, title: '添加接口' }}
+      />})
+  };
+
+  editInter = (e: any) => {
+    this.setState({ Dialog: () => <InJect
+        Component={InterDialog}
+        props={{ closeDialog: this.closeDialog, title: '修改接口' }}
+      />})
+  };
+
+  closeDialog = () => {
+    this.setState({ Dialog: null });
   };
 
   changeSortOrder = () => {
@@ -58,42 +91,6 @@ class Middle extends React.Component<ISystem> {
     return null;
   };
 
-  // 单选和多选
-  // check = (code :string) => {
-  //   const { checkNotes, changeCheckNotes } = _.cloneDeep(this.props);
-  //   const event: any = window.event;
-  //   if (event.ctrlKey) {
-  //     if (checkNotes.indexOf(code) >  -1) {
-  //       const newCheckNotes =  checkNotes.filter((note: string) => {
-  //         return note !== code;
-  //       });
-  //       changeCheckNotes(newCheckNotes);
-  //     } else {
-  //       checkNotes.push(code);
-  //       changeCheckNotes(checkNotes);
-  //     }
-  //   } else {
-  //     changeCheckNotes([code]);
-  //   }
-  // };
-
-  showContextMenu = (e: any, note: any) => {
-    const menu =
-      <Menu>
-        <MenuItem text={note.isPin ? '取消置顶' : '置顶'} />
-        <MenuItem text={note.isFavourite ? '取消关注' : '关注'} />
-        <MenuItem text={note.isDelete ? '还原' : '删除'} />
-        <MenuItem text="永久删除" />
-      </Menu>;
-    if(e.button === 2) {
-      ContextMenu.show(
-        menu, { left: e.clientX, top: e.clientY },
-      );
-      e.preventDefault();
-      e.stopPropagation();
-    }
-  };
-
   focusSearch = () => {
     document.body.addEventListener('keyup', this.keyUpEvent);
   };
@@ -108,27 +105,25 @@ class Middle extends React.Component<ISystem> {
   };
 
   keyUpEvent = (e: any) => {
-    // const { searchNotes } = this.props;
+    const { searchInter } = this.props.app;
     if (window.event) {
       e = window.event;
     }
     const code = e.keyCode;
     if (code === 13) {
-      // searchNotes();
+      searchInter();
     }
   };
 
-  showTags = (tags: any[]) => {
-    return tags.map((tag: any) => {
-      console.log(tag.name);
-      return tag.name;
-    }).join('\n');
+  showTitle = (inter: any) => {
+    return `接口名:${inter.name}\n描述:${inter.description}`;
   };
 
   render() {
     const { app, system } = this.props;
+    const { Dialog } = this.state;
     const { mainHeight, middleWidth } = system;
-    const { sort, changeSort } = app;
+    const { sort, changeSort, inters, checkInter, checkedInter } = app;
     return (
       <div className="middle" style={{ width: middleWidth }}>
         <div className="layout-header toolbar">
@@ -144,7 +139,7 @@ class Middle extends React.Component<ISystem> {
                 onFocus={this.focusSearch}
               />
             </div>
-            <Button icon="plus" small title="添加" />
+            <Button icon="plus" small title="添加" onClick={this.addInter}/>
           </div>
         </div>
         <div className="layout-header list-header">
@@ -159,22 +154,18 @@ class Middle extends React.Component<ISystem> {
           {this.showOrderIcon()}
         </div>
         <div className="list-notes" style={{ height: mainHeight - 65 }}>
-          {/*{notes.map((note: any) => {*/}
-          {/*  return <div*/}
-          {/*    key={note.id}*/}
-          {/*    className={classNames("note-item", { active: checkNotes.indexOf(note.id) > -1 })}*/}
-          {/*    onClick={() => this.check(note.id)}*/}
-          {/*    onContextMenu={(e) => this.showContextMenu(e, note)}*/}
-          {/*  >*/}
-          {/*    <span title={note.name} className="note-name">{note.name}</span>*/}
-          {/*    <span className="icon-item">*/}
-          {/*      {note.isFavourite ? <Icon icon="star" title="已关注" iconSize={14}/> : null}*/}
-          {/*      {note.isPin ? <Icon icon="pin" title="已置顶" iconSize={14}/> : null}*/}
-          {/*      {note.tags.length > 0 ? <Icon icon="tag" title={this.showTags(note.tags)} iconSize={14}/> : null}*/}
-          {/*    </span>*/}
-          {/*  </div>*/}
-          {/*})}*/}
+          {inters.map((inter: any) => {
+            return <div
+              key={inter.id}
+              className={classNames("note-item", { active: inter.id === checkedInter })}
+              onClick={() => checkInter(inter.id)}
+            >
+              <span title={this.showTitle(inter)} className="note-name">{inter.name}</span>
+              <Icon className='icon-item' icon='edit' title='编辑' onClick={e => this.editInter(e)}/>
+            </div>
+          })}
         </div>
+        {Dialog ? <Dialog /> : null}
       </div>
     );
   }
