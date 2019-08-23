@@ -76,9 +76,26 @@ type IProps = {
 
 @inject("system", "app")
 @observer
-class EditSql extends React.Component<IProps> {
+class EditBody extends React.Component<IProps> {
 
-  editorDidMount(editor: monacoEditor.editor.IStandaloneCodeEditor, monaco: typeof monacoEditor) {
+  editorDidMount = (editor: monacoEditor.editor.IStandaloneCodeEditor, monaco: typeof monacoEditor) => {
+    const { language } = this.props.app;
+    console.log(language);
+    const suggestion = [{
+      label: '测试1',
+      insertText: '测试1', // 不写的时候不展示。。
+      detail: '提示的文字'
+    },
+      {
+        label: '测试2',
+        insertText: '测试22',
+        detail: '提示的文字'
+      },
+      {
+        label: '测试3',
+        insertText: '测试3',
+        detail: '提示的文字'
+      }];
     // @ts-ignore
     monaco.languages.registerCompletionItemProvider('sql', { provideCompletionItems: function(model, position) {
       const textUntilPosition = model.getValueInRange({
@@ -118,23 +135,31 @@ class EditSql extends React.Component<IProps> {
           });
         }
       });
+      suggestion.forEach(item => {
+        suggestions.push({
+          label: item.label,
+          kind: monaco.languages.CompletionItemKind.Field,
+          insertText: item.insertText,
+        });
+      });
       return {
         suggestions
       };
     },
+    triggerCharacters: ['#'],
     });
-  }
+  };
 
   render() {
     const { content, system, app, expressionChange } = this.props;
     const { mainWidth, mainHeight } = system;
-    const { language } = app;
+    const { language, lineNum } = app;
     const options: monacoEditor.editor.IEditorConstructionOptions = {
       selectOnLineNumbers: true,
       lineHeight: 30,
       minimap: { enabled: false },
     };
-    options['lineNumbers'] = 'off';
+    options['lineNumbers'] = lineNum ? 'on' : 'off';
     options['wordWrap'] = 'on';
     return (
       <div className="layout-content editor">
@@ -155,4 +180,4 @@ class EditSql extends React.Component<IProps> {
   }
 }
 
-export default EditSql;
+export default EditBody;

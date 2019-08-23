@@ -2,8 +2,7 @@ import * as React from 'react';
 import { System, App } from 'store';
 import { Row, Col, Input, Form, Button } from 'antd';
 import { inject, observer } from 'mobx-react';
-import EditSql from './EditSql';
-import EditJson from './EditJson';
+import EditBody from './EditBody';
 import InJect from '../../util/InJect';
 
 interface ISystem {
@@ -104,7 +103,7 @@ class MainForm extends React.Component<ISystem, IState> {
           label='body'
         >
           {getFieldDecorator('expression', {})(
-            <InJect Component={EditSql} props={ {expression, params, expressionChange: this.expressionChange }} />
+            <InJect Component={EditBody} props={ {expression, params, expressionChange: this.expressionChange }} />
           )}
         </Form.Item>
       </Form>

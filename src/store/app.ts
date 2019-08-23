@@ -15,6 +15,7 @@ class App {
   @observable sort: sortObj;
   @observable searchValue: string;
   @observable language: string;
+  @observable lineNum: boolean;
 
   constructor () {
     this.loading = false;
@@ -27,6 +28,7 @@ class App {
     this.sort = { sortName: 'name', sortOrder: 'DESC' };
     this.searchValue = '';
     this.language = 'sql';
+    this.lineNum = true;
   }
 
   @action init = async () => {
@@ -49,6 +51,10 @@ class App {
         this.checkedInter = inters[0].id;
       }
     });
+  };
+
+  @action changeLineNum = (lineNum: boolean) => {
+    this.lineNum = lineNum;
   };
 
   @action changeLanguage = (language: string) => {

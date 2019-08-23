@@ -45,7 +45,7 @@ class MainHeadBar extends React.Component<IProps> {
 
 
   render() {
-    const { language, changeLanguage } = this.props.app;
+    const { language, changeLanguage, lineNum, changeLineNum } = this.props.app;
     return (
       <div className="layout-header toolbar">
         <ButtonGroup>
@@ -55,6 +55,9 @@ class MainHeadBar extends React.Component<IProps> {
         <ButtonGroup>
           <Button icon="edit" small title="编辑" active />
           <Button icon="wrench" small title="调试" />
+        </ButtonGroup>
+        <ButtonGroup>
+          <Button icon="numerical" small title="行号" active={lineNum} onClick={() => changeLineNum(!lineNum)} />
         </ButtonGroup>
         <ButtonGroup>
           <Select size="small" showSearch className='select-language' value={language} onSelect={changeLanguage}>
