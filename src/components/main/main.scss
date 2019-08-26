@@ -57,12 +57,9 @@
       .editor-content {
         border-left: 1px solid #d9d9d9;
         border-bottom: 1px solid #d9d9d9;
-        //.margin {
-        //  display: none;
-        //}
-        //.monaco-scrollable-element {
-        //  left: 0 !important;
-        //}
+        .margin-view-overlays {
+          border-top: 1px solid #d9d9d9
+        }
       }
     }
   }
